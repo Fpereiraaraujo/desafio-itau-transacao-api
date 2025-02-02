@@ -27,10 +27,27 @@ public class TransacaoService {
 
         if (dto.valor() < 0) {
             log.error("valor negativo");
-            throw new UnprocessableEntity("valor nao pode ser menor que zero ")
+            throw new UnprocessableEntity("valor nao pode ser menor que zero ");
         }
 
 
         listaTransacoes.add(dto);
     }
+
+    public void limparTransacoes() {
+        listaTransacoes.clear();
+    }
+
+    public List<TransacaoRequestDTO> buscarTransacoes(Integer intervaloBusca) {
+
+        OffsetDateTime dataHoraIntervalo = OffsetDateTime.now().minusSeconds(intervaloBusca);
+
+        return listaTransacoes.stream()
+                .filter(transacao -> transacao.dataRecord()
+                        .isAfter(dataHoraIntervalo)).toList();
+
+
+    }
+
+
 }

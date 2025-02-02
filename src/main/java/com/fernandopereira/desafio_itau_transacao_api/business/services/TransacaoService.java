@@ -30,7 +30,7 @@ public class TransacaoService {
             throw new UnprocessableEntity("valor nao pode ser menor que zero ");
         }
 
-
+        log.info("transacoes adicionadas com sucesso");
         listaTransacoes.add(dto);
     }
 
